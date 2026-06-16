@@ -20,7 +20,6 @@ export default function MapView({ deals, onSelectDeal, selectedId }: MapViewProp
 
     (async () => {
       const L = (await import('leaflet')).default;
-      await import('leaflet/dist/leaflet.css');
 
       const map = L.map(mapRef.current!, {
         center:        [44.8, 16.5],
