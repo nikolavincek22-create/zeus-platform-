@@ -40,11 +40,11 @@ const INITIAL: FormState = {
   arbitration:           false,
 };
 
-function Field({ label, required, children, hint }: {
-  label: string; required?: boolean; children: React.ReactNode; hint?: string;
+function Field({ label, required, children, hint, className }: {
+  label: string; required?: boolean; children: React.ReactNode; hint?: string; className?: string;
 }) {
   return (
-    <div>
+    <div className={className}>
       <label className="block text-[11px] text-white/50 uppercase tracking-wider mb-1.5">
         {label} {required && <span className="text-zeus-red">*</span>}
       </label>
