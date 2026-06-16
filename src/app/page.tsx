@@ -1,21 +1,15 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Sidebar, { type View } from '@/components/Sidebar';
-import MapDashboard   from '@/views/MapDashboard';
-import DealsView      from '@/views/DealsView';
-import ProfileView    from '@/views/ProfileView';
-import EducationView  from '@/views/EducationView';
-import ContractView   from '@/views/ContractView';
+import TopBar       from '@/components/TopBar';
+import MapDashboard  from '@/views/MapDashboard';
+import DealsView     from '@/views/DealsView';
+import ProfileView   from '@/views/ProfileView';
+import EducationView from '@/views/EducationView';
+import ContractView  from '@/views/ContractView';
 
 export default function Home() {
-  const [view, setView]       = useState<View>('map');
-  const [prevView, setPrevView] = useState<View | null>(null);
-
-  const navigate = (v: View) => {
-    if (v === view) return;
-    setPrevView(view);
-    setView(v);
-  };
+  const [view, setView] = useState<View>('map');
 
   const VIEWS: Record<View, React.ReactNode> = {
     map:       <MapDashboard />,
@@ -25,16 +19,27 @@ export default function Home() {
     contract:  <ContractView />,
   };
 
+  const TITLES: Record<View, string> = {
+    map:       'Mapa',
+    deals:     'Dealovi',
+    profile:   'Profil',
+    education: 'Edukacija',
+    contract:  'Smart Ugovor',
+  };
+
   return (
     <div className="flex h-screen overflow-hidden bg-zeus-bg">
-      <Sidebar active={view} onChange={navigate} notifCount={2} />
-      <main
-        key={view}
-        className="flex-1 overflow-hidden"
-        style={{ animation: 'slideUp 0.28s cubic-bezier(0.4,0,0.2,1) forwards' }}
-      >
-        {VIEWS[view]}
-      </main>
+      <Sidebar active={view} onChange={setView} notifCount={2} />
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+        <TopBar title={TITLES[view]} />
+        <main
+          key={view}
+          className="flex-1 min-h-0 overflow-hidden"
+          style={{ animation: 'slideFade 0.32s cubic-bezier(0.4,0,0.2,1) forwards' }}
+        >
+          {VIEWS[view]}
+        </main>
+      </div>
     </div>
   );
 }
