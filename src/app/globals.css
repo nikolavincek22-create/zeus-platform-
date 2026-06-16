@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg:      #1A1A1A;
+  --color-surface: #F4F4F4;
+  --color-black:   #000000;
+  --color-white:   #FFFFFF;
+  --color-red:     #FF3B30;
+  --ease-zeus:     cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 200ms;
+  --duration-std:  280ms;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-bg);
+  color: var(--color-white);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: #2a2a2a; }
+::-webkit-scrollbar-thumb { background: #444; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #666; }
+
+/* Leaflet map fix */
+.leaflet-container {
+  background: #1a1a1a !important;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.leaflet-tile-pane { filter: brightness(0.85) saturate(0.7) contrast(1.05); }
+
+/* Screen transitions */
+.page-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity var(--duration-std) var(--ease-zeus),
+              transform var(--duration-std) var(--ease-zeus);
+}
+
+/* Deal card hover */
+.deal-card {
+  transition: transform var(--duration-fast) var(--ease-zeus),
+              box-shadow var(--duration-fast) var(--ease-zeus);
+}
+.deal-card:hover {
+  transform: scale(1.015);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+.deal-card:active {
+  transform: scale(0.99);
+}
+
+/* Red dot pulse ring */
+@keyframes redRing {
+  0%   { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+.red-dot-ring {
+  animation: redRing 1.8s var(--ease-zeus) infinite;
+}
